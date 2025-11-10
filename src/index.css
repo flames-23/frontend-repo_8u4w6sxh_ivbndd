@@ -4,43 +4,54 @@
 
 @layer base {
   :root {
+    /* Colors */
+    --electric-blue: #007BFF;
+    --deep-navy: #0F1724;
+    --charcoal: #1F2937;
+    --soft-cyan: #00D1FF;
+    --warm-neutral: #F8FAFC;
+    --glass: rgba(255,255,255,0.06);
+    --success: #22C55E;
+
+    /* Radius */
+    --radius-card: 12px;
+    --radius-btn: 6px;
+
+    /* Motion */
+    --ease-spring: cubic-bezier(0.21, 0.47, 0.32, 0.98);
+    --dur-quick: 200ms;
+    --dur-slow: 800ms;
+
     --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-geist: 'Geist', system-ui, sans-serif;
-    --font-geist-mono: 'Geist Mono', monospace;
-    --font-mona: 'Mona Sans', system-ui, sans-serif;
-    --font-ibm-plex: 'IBM Plex Sans', system-ui, sans-serif;
-    --font-manrope: 'Manrope', system-ui, sans-serif;
   }
 
-  html {
-    font-family: var(--font-sans);
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-
-  body {
-    @apply antialiased;
-  }
+  html { font-family: var(--font-sans); background: var(--deep-navy); color: white; }
+  body { @apply antialiased; }
 }
 
-/* Custom utility classes for shadcn/ui patterns */
-@layer utilities {
-  .animate-in {
-    animation-name: animateIn;
-    animation-duration: 350ms;
-    --tw-enter-opacity: initial;
-    --tw-enter-scale: initial;
-    --tw-enter-rotate: initial;
-    --tw-enter-translate-x: initial;
-    --tw-enter-translate-y: initial;
-  }
+/* Accessibility: reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
 
-  .animate-out {
-    animation-name: animateOut;
-    animation-duration: 350ms;
-    --tw-exit-opacity: initial;
-    --tw-exit-scale: initial;
-    --tw-exit-rotate: initial;
-    --tw-exit-translate-x: initial;
-    --tw-exit-translate-y: initial;
-  }
+/***** Components *****/
+.btn {
+  @apply inline-flex items-center justify-center font-semibold px-5 py-2.5 rounded-md transition-all;
+}
+.btn-primary { background: var(--electric-blue); color: white; }
+.btn-primary:hover { transform: translateY(-4px); box-shadow: 0 18px 50px -15px rgba(0,123,255,0.65); }
+.btn-primary:active { transform: translateY(-1px) scale(0.99); }
+
+.btn-secondary { background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(6px); }
+.btn-secondary:hover { transform: translateY(-4px); }
+.btn-secondary:active { transform: translateY(-1px) scale(0.99); }
+
+.card { @apply rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl; }
+
+/* Blueprint grid overlay utility */
+.blueprint-bg {
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px;
 }
